@@ -4,7 +4,7 @@ use JonnyW\PhantomJs\Client;
 
 $video = $_GET['id'];
 if($video == ''){
-	echo "Specificare l'ID del video.";
+	echo "Where is the media ID?"; //https://openload.co/embed/7zLUwKrlQqCk  (The ID is "7zLUwKrlQqCk" in this case)
 	exit();
 }else{
 	$client = Client::getInstance();
@@ -23,14 +23,17 @@ if($video == ''){
 			echo json_encode(array('error' => '404', 'msg' => 'File not found'));
 			exit();
 		}
-	    $openload = explode('<span id="streamurl">', $openload)[1];
-	    $file = 'https://openload.co/stream/'.explode('</span>', $openload)[0].'?mime=true';
-    	$headers = get_headers($file,1);
-    	$filename = explode('?', end(explode('/',$headers['Location'])))[0];
+	    	$openload = explode('<span id="streamurl">', $openload)[1];
+	    	$file = 'https://openload.co/stream/'.explode('</span>', $openload)[0].'?mime=true';
+    		$headers = get_headers($file,1);
+    		
+    		//Final Args
+    		$filename = explode('?', end(explode('/',$headers['Location'])))[0];
 	   	$file = explode('?', $headers['Location'])[0];
 	   	$size = $headers['Content-Length'];
-	   	set_time_limit(0);
 	   	
+	   	//Download Code
+	   	set_time_limit(0);
 	   	header('Content-Type: video/mp4');
 		header('Content-Length: '.$size);
 	   	
