@@ -1,0 +1,21 @@
+{
+    "require": {
+        "php": "^7.0.0",
+        "jakoch/phantomjs-installer": "*",
+        "diversen/http-send-file": "*",
+        "jonnyw/php-phantomjs": "*"
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "PhantomInstaller\\Installer::installPhantomJS"
+        ],
+        "post-update-cmd": [
+            "PhantomInstaller\\Installer::installPhantomJS"
+        ]
+    }
+}
+
+
